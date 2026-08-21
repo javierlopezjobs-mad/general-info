@@ -1,11 +1,6 @@
-# Release Notes / Notas de versión
-
-## v0.1.3
-
-### English (en-US)
-
+<en-US>
 First Version.
-
-### Español (es-ES)
-
+</en-US>
+<es-ES>
 Primera versión.
+</es-ES>
