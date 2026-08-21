@@ -36,22 +36,21 @@ Whether you're tasting wines, cheeses, coffees, craft beers, or anything else, T
 
 ---
 
-## Screenshots Plan
+## Screenshots
 
-Minimum 2 required, 4-8 recommended. Capture in dark mode with realistic data.
+7 screenshots captured (1080x2400, 9:16, PNG). Located in `screenshots/`.
 
-| # | Screen | What to show |
-|---|--------|-------------|
-| 1 | Tastings list | Multiple tastings with names, dates, product counts |
-| 2 | Tasting detail | Products inside a tasting with star ratings visible |
-| 3 | Product rating | The star rating modal with note input |
-| 4 | Barcode scanner | Camera view scanning a real product |
-| 5 | Product search | Search results from the product database |
-| 6 | All Products tab | Full list of all rated products across tastings |
+| # | File | Screen |
+|---|------|--------|
+| 1 | Screenshot_20260821-083935.png | *review name* |
+| 2 | Screenshot_20260821-084011.png | *review name* |
+| 3 | Screenshot_20260821-084110.png | *review name* |
+| 4 | Screenshot_20260821-084124.png | *review name* |
+| 5 | Screenshot_20260821-084136.png | *review name* |
+| 6 | Screenshot_20260821-084216.png | *review name* |
+| 7 | Screenshot_20260821-084303.png | *review name* |
 
-### Specs
-- Phone screenshots: 9:16 aspect ratio, min 320px, max 3840px
-- Feature graphic: 1024x500 px
+> Fill in the "review name" column with the screen name shown in each screenshot.
 
 ---
 
@@ -68,3 +67,4 @@ Minimum 2 required, 4-8 recommended. Capture in dark mode with realistic data.
 ## Changelog
 
 - **2026-08-21** — Initial draft with barcode scanning, product search, star ratings, notes, tasting sessions, bilingual support, offline-first.
+- **2026-08-21** — Added 7 phone screenshots (1080x2400) and 512x512 Play Store icon.
