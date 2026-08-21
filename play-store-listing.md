@@ -56,11 +56,14 @@ Whether you're tasting wines, cheeses, coffees, craft beers, or anything else, T
 
 ## Feature Graphic
 
+**File:** `feature-graphic.png` — 1024x500, 17KB PNG
+
 - Dark background (#25292E)
-- App icon on the left
-- "Tasting Party" text in white
-- Gold accent (#ffd33d) stars or decorative elements
-- Tagline: "Your tasting journal, fully offline"
+- Gold app icon with star on the left
+- "Tasting Party" in white
+- Tagline in gold (#ffd33d): "Your tasting journal, fully offline"
+- 5 gold stars decoration
+- Gold accent bar at bottom
 
 ---
 
