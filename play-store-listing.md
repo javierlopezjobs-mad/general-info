@@ -28,7 +28,9 @@ Rate and review food & drink products. Your tasting journal, fully offline. (79 
 - **Star ratings** — rate every product from 1 to 5
 - **Personal notes** — write your own tasting notes per product
 - **Tasting sessions** — group products into named tastings with descriptions
-- **All products view** — see every product across all your tastings, sorted by most recent
+- **All products view** — see every product across all your tastings, sorted by tasting, date, name, or rating
+- **Richer nutrition details** — lactose, sugars, saturated fat, fiber, sodium, trans fat, and alcohol shown when available (fields with no data stay hidden)
+- **Data export & import** — back up all your data as a JSON file or analyze it as a CSV spreadsheet; restore from a backup in Settings
 - **Bilingual** — available in English and Spanish
 - **100% offline** — all your data stays on your device. No accounts, no cloud, no tracking
 
@@ -38,7 +40,7 @@ Whether you're tasting wines, cheeses, coffees, craft beers, or anything else, T
 
 ## Screenshots
 
-7 screenshots captured (1080x2400, 9:16, PNG). Located in `screenshots/`.
+6 screenshots captured (1080x2400, 9:16, PNG). Located in `screenshots/`.
 
 | # | File | Screen |
 |---|------|--------|
@@ -47,8 +49,7 @@ Whether you're tasting wines, cheeses, coffees, craft beers, or anything else, T
 | 3 | Screenshot_20260821-084110.png | *review name* |
 | 4 | Screenshot_20260821-084124.png | *review name* |
 | 5 | Screenshot_20260821-084136.png | *review name* |
-| 6 | Screenshot_20260821-084216.png | *review name* |
-| 7 | Screenshot_20260821-084303.png | *review name* |
+| 6 | Screenshot_20260821-084303.png | *review name* |
 
 > Fill in the "review name" column with the screen name shown in each screenshot.
 
@@ -71,3 +72,4 @@ Whether you're tasting wines, cheeses, coffees, craft beers, or anything else, T
 
 - **2026-08-21** — Initial draft with barcode scanning, product search, star ratings, notes, tasting sessions, bilingual support, offline-first.
 - **2026-08-21** — Added 7 phone screenshots (1080x2400) and 512x512 Play Store icon.
+- **2026-08-30** — v0.1.4: product sorting, richer nutrition details, data export/import.
