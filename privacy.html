@@ -186,7 +186,12 @@
             document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.remove('active'));
             document.getElementById(lang).classList.add('active');
             document.getElementById('btn-' + lang).classList.add('active');
+            var url = new URL(window.location);
+            url.searchParams.set('lang', lang);
+            window.history.replaceState({}, '', url);
         }
+        var params = new URLSearchParams(window.location.search);
+        switchLang(params.get('lang') || 'es');
     </script>
 </body>
 </html>
