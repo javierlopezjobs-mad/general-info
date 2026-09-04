@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasting Party — Your tasting journal, fully offline</title>
-    <meta name="description" content="Rate and review food & drink products. Your personal tasting journal, fully offline. Barcode scanning, star ratings, notes, and more.">
+    <title>Tasting Partner — Tu diario de catas personal, totalmente offline</title>
+    <meta name="description" content="Puntúa y reseña productos de comida y bebida. Tu diario de catas personal, totalmente offline.">
     <style>
         :root {
             --bg-dark: #25292E;
@@ -70,7 +70,7 @@
         @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .hero-content { position: relative; z-index: 1; max-width: 700px; }
         .hero-icon {
-            width: 120px; height: 120px; border-radius: 28px;
+            width: 140px; height: 140px; border-radius: 32px;
             margin: 0 auto 1.5rem;
             box-shadow: 0 8px 32px rgba(255,211,61,0.25);
         }
@@ -92,7 +92,6 @@
         .btn-gold:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,211,61,0.3); }
         .btn-outline { border: 1.5px solid var(--card-border); color: var(--gray-light); background: transparent; }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
         /* FEATURE GRAPHIC */
         .feature-graphic-section {
@@ -100,7 +99,8 @@
             display: flex; justify-content: center;
         }
         .feature-graphic-section img {
-            max-width: 100%; width: 800px; border-radius: 12px;
+            width: 100%; max-width: 900px; height: auto;
+            border-radius: 12px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.4);
         }
 
@@ -209,15 +209,14 @@
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.8rem; }
             .nav-links a.nav-about { display: none; }
-            .hero-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
-<body>
+<body class="es">
     <nav>
         <a href="#" class="nav-brand">
-            <img src="play-store-icon.png" alt="Tasting Party">
-            <span>Tasting Party</span>
+            <img src="play-store-icon.png" alt="Tasting Partner">
+            <span>Tasting Partner</span>
         </a>
         <div class="nav-links">
             <a href="#features" class="nav-about lang-en">Features</a>
@@ -227,8 +226,8 @@
             <a href="#privacy" class="lang-en">Privacy</a>
             <a href="#privacy" class="lang-es" style="display:none">Privacidad</a>
             <div class="lang-toggle">
-                <button id="btn-en" class="active" onclick="switchLang('en')">EN</button>
-                <button id="btn-es" onclick="switchLang('es')">ES</button>
+                <button id="btn-es" class="active" onclick="switchLang('es')">ES</button>
+                <button id="btn-en" onclick="switchLang('en')">EN</button>
             </div>
         </div>
     </nav>
@@ -236,32 +235,26 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
-            <img src="feature-graphic.png" alt="Tasting Party" class="hero-icon">
+            <img src="play-store-icon.png" alt="Tasting Partner" class="hero-icon">
             <div class="lang-hero-en">
-                <h1><span class="gold">Tasting</span> Party</h1>
+                <h1><span class="gold">Tasting</span> Partner</h1>
                 <p class="tagline">Your personal tasting journal, fully offline.</p>
             </div>
             <div class="lang-hero-es">
-                <h1><span class="gold">Tasting</span> Party</h1>
+                <h1><span class="gold">Tasting</span> Partner</h1>
                 <p class="tagline">Tu diario de catas personal, totalmente offline.</p>
             </div>
             <p class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-            <div class="hero-buttons">
-                <a href="https://github.com/javierlopezjobs-mad/general-info" class="btn btn-gold">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    View on GitHub
-                </a>
-                <a href="#features" class="btn btn-outline">
-                    <span class="lang-en">Learn More</span>
-                    <span class="lang-es" style="display:none">Saber Más</span>
-                </a>
-            </div>
+            <a href="#features" class="btn btn-gold">
+                <span class="lang-en">Learn More</span>
+                <span class="lang-es" style="display:none">Saber Más</span>
+            </a>
         </div>
     </section>
 
     <!-- FEATURE GRAPHIC -->
     <div class="feature-graphic-section">
-        <img src="feature-graphic.png" alt="Tasting Party — Your tasting journal, fully offline">
+        <img src="feature-graphic.png" alt="Tasting Partner — Tu diario de catas personal, totalmente offline">
     </div>
 
     <!-- FEATURES -->
@@ -356,8 +349,8 @@
             <span class="lang-es" style="display:none">Tus datos, tu dispositivo</span>
         </h2>
         <p class="section-subtitle">
-            <span class="lang-en">Tasting Party is built privacy-first. No accounts, no cloud sync, no data leaves your phone.</span>
-            <span class="lang-es" style="display:none">Tasting Party está construido con la privacidad primero. Sin cuentas, sin sincronización en la nube, ningún dato sale de tu teléfono.</span>
+            <span class="lang-en">Tasting Partner is built privacy-first. No accounts, no cloud sync, no data leaves your phone.</span>
+            <span class="lang-es" style="display:none">Tasting Partner está construido con la privacidad primero. Sin cuentas, sin sincronización en la nube, ningún dato sale de tu teléfono.</span>
         </p>
         <div class="privacy-content">
             <div class="privacy-item">
@@ -382,11 +375,10 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-links">
-            <a href="https://github.com/javierlopezjobs-mad/general-info">GitHub</a>
             <a href="privacy.html">Privacy Policy</a>
-            <a href="https://github.com/javierlopezjobs-mad/general-info/blob/main/release-notes.md">Release Notes</a>
+            <a href="release-notes.md">Release Notes</a>
         </div>
-        <p>&copy; 2026 jlopezlabs — Tasting Party</p>
+        <p>&copy; 2026 jlopezlabs — Tasting Partner</p>
     </footer>
 
     <script>
