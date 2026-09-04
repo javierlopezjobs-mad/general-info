@@ -1,188 +1,401 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Política de Privacidad / Privacy Policy</title>
+    <title>Tasting Party — Your tasting journal, fully offline</title>
+    <meta name="description" content="Rate and review food & drink products. Your personal tasting journal, fully offline. Barcode scanning, star ratings, notes, and more.">
     <style>
+        :root {
+            --bg-dark: #25292E;
+            --bg-darker: #1a1d21;
+            --gold: #ffd33d;
+            --gold-hover: #ffe066;
+            --white: #ffffff;
+            --gray-light: #b0b8c1;
+            --gray-mid: #8b949e;
+            --card-bg: #2d3239;
+            --card-border: #3d434a;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
+            color: var(--white);
+            background: var(--bg-dark);
         }
-        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
-        header { text-align: center; margin-bottom: 2rem; padding: 2rem 0; background: #fff; border-bottom: 1px solid #e1e4e8; }
-        header h1 { font-size: 1.8rem; color: #24292e; }
-        .lang-toggle { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(37,41,46,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0.8rem 2rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+        .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
+        .nav-brand span { color: var(--white); font-weight: 700; font-size: 1.1rem; }
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links a { color: var(--gray-light); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .lang-toggle {
+            display: flex; gap: 2px;
+            background: var(--card-bg); border-radius: 6px; overflow: hidden;
+        }
         .lang-toggle button {
-            padding: 0.5rem 1.5rem;
-            border: 1px solid #d1d5da;
-            background: #fff;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+            padding: 0.35rem 0.8rem; border: none; background: transparent;
+            color: var(--gray-light); cursor: pointer; font-size: 0.85rem; transition: all 0.2s;
         }
-        .lang-toggle button.active { background: #0366d6; color: #fff; border-color: #0366d6; }
-        .lang-toggle button:hover:not(.active) { background: #f1f3f5; }
-        .content { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .lang-section { display: none; }
-        .lang-section.active { display: block; }
-        h2 { font-size: 1.4rem; margin: 1.5rem 0 0.75rem; color: #24292e; }
-        h3 { font-size: 1.15rem; margin: 1.2rem 0 0.5rem; color: #24292e; }
-        p, li { font-size: 0.95rem; margin-bottom: 0.75rem; }
-        ul { padding-left: 1.5rem; margin-bottom: 0.75rem; }
-        li { margin-bottom: 0.4rem; }
-        footer { text-align: center; margin-top: 2rem; padding: 1rem; color: #6a737d; font-size: 0.85rem; }
+        .lang-toggle button.active { background: var(--gold); color: var(--bg-dark); font-weight: 600; }
+        .lang-toggle button:hover:not(.active) { color: var(--white); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at center, rgba(255,211,61,0.06) 0%, transparent 60%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+        .hero-icon {
+            width: 120px; height: 120px; border-radius: 28px;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 32px rgba(255,211,61,0.25);
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .hero h1 .gold { color: var(--gold); }
+        .hero .tagline { font-size: 1.25rem; color: var(--gray-light); margin-bottom: 0.5rem; }
+        .hero .stars { font-size: 1.5rem; color: var(--gold); margin-bottom: 2rem; letter-spacing: 4px; }
+        .lang-hero-es { display: none; }
+        body.es .lang-hero-es { display: block; }
+        body.es .lang-hero-en { display: none; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.9rem 2rem; border-radius: 12px;
+            font-size: 1rem; font-weight: 600; text-decoration: none;
+            transition: all 0.25s; cursor: pointer; border: none;
+        }
+        .btn-gold { background: var(--gold); color: var(--bg-dark); }
+        .btn-gold:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,211,61,0.3); }
+        .btn-outline { border: 1.5px solid var(--card-border); color: var(--gray-light); background: transparent; }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        /* FEATURE GRAPHIC */
+        .feature-graphic-section {
+            padding: 2rem 2rem 4rem;
+            display: flex; justify-content: center;
+        }
+        .feature-graphic-section img {
+            max-width: 100%; width: 800px; border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        /* SECTIONS */
+        section { padding: 5rem 2rem; }
+        .section-title {
+            text-align: center; font-size: 2rem; font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--gray-light); font-size: 1.05rem;
+            max-width: 600px; margin: 0 auto 3rem;
+        }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+        .feature-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+        .feature-card p { color: var(--gray-light); font-size: 0.92rem; }
+
+        /* SCREENSHOTS */
+        .screenshots {
+            overflow: hidden;
+            padding: 5rem 0;
+        }
+        .screenshots .section-title,
+        .screenshots .section-subtitle { padding: 0 2rem; }
+        .screenshots-track {
+            display: flex; gap: 1.25rem;
+            padding: 1rem 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--card-bg);
+        }
+        .screenshots-track::-webkit-scrollbar { height: 6px; }
+        .screenshots-track::-webkit-scrollbar-track { background: var(--card-bg); border-radius: 3px; }
+        .screenshots-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+        .screenshot {
+            flex: 0 0 auto;
+            width: 240px;
+            scroll-snap-align: center;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--card-border);
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .screenshot:hover { border-color: var(--gold); transform: scale(1.03); }
+        .screenshot img { width: 100%; display: block; }
+
+        /* PRIVACY */
+        .privacy {
+            background: var(--bg-darker);
+        }
+        .privacy-content {
+            max-width: 800px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+            align-items: start;
+        }
+        .privacy-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .privacy-check {
+            flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+            background: rgba(255,211,61,0.15); display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-weight: 700; font-size: 0.9rem;
+        }
+        .privacy-item p { color: var(--gray-light); font-size: 0.95rem; }
+        .privacy-item strong { color: var(--white); }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid var(--card-border);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+        .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+        .footer-links a { color: var(--gray-mid); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+        footer p { color: var(--gray-mid); font-size: 0.8rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            nav { padding: 0.6rem 1rem; }
+            .nav-links { gap: 0.8rem; }
+            .privacy-content { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.6rem; }
+            section { padding: 3.5rem 1.5rem; }
+            .screenshot { width: 180px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links a.nav-about { display: none; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Política de Privacidad / Privacy Policy</h1>
-        <div class="lang-toggle">
-            <button id="btn-es" class="active" onclick="switchLang('es')">Español</button>
-            <button id="btn-en" onclick="switchLang('en')">English</button>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="content">
-
-            <!-- ESPAÑOL -->
-            <div id="es" class="lang-section active">
-                <p><em>Última actualización: 20 de agosto de 2026</em></p>
-
-                <h2>1. Introducción</h2>
-                <p>Esta Política de Privacidad describe cómo maneja la información la aplicación <strong>Tasting Party</strong> (en adelante, "la Aplicación"), desarrollada por jlopezlabs.</p>
-                <p>La Aplicación es gratuita y no requiere registro ni creación de cuenta. Toda la información que introduces permanece exclusivamente en tu dispositivo.</p>
-
-                <h2>2. Información que maneja la Aplicación</h2>
-                <h3>2.1 Datos que almacenas en tu dispositivo</h3>
-                <p>La Aplicación almacena únicamente la siguiente información de forma local en tu dispositivo:</p>
-                <ul>
-                    <li>Nombres y descripciones de catas</li>
-                    <li>Productos añadidos a las catas (nombre, marca, cantidad)</li>
-                    <li>Puntuaciones y notas de cata (valoraciones de 1 a 5 estrellas y texto libre)</li>
-                    <li>Preferencia de idioma de la Aplicación</li>
-                </ul>
-                <p>Estos datos se guardan exclusivamente en el almacenamiento local del dispositivo (AsyncStorage) y <strong>nunca se envían a ningún servidor, nube o servicio externo</strong>.</p>
-
-                <h3>2.2 Datos que NO recopilamos</h3>
-                <p>La Aplicación <strong>no recopila</strong> ningún dato personal identificable, incluyendo:</p>
-                <ul>
-                    <li>Nombre, correo electrónico, teléfono o dirección</li>
-                    <li>Datos de ubicación</li>
-                    <li>Información del dispositivo o del sistema</li>
-                    <li>Datos de uso o análisis (analytics)</li>
-                    <li>Cualquier otro dato que pueda identificarte</li>
-                </ul>
-
-                <h3>2.3 Conexiones a servicios externos</h3>
-                <p>La Aplicación puede realizar consultas de solo lectura a bases de datos públicas de productos alimenticios para obtener información como nombre, marca y datos nutricionales. Estas consultas se limitan a:</p>
-                <ul>
-                    <li>Búsqueda de productos por nombre o palabra clave</li>
-                    <li>Consulta de productos por código de barras escaneado con la cámara</li>
-                </ul>
-                <p>Únicamente se envía el término de búsqueda o el código de barras. No se envía ningún dato personal, identificador de usuario ni información de tu dispositivo.</p>
-
-                <h2>3. Permisos del dispositivo</h2>
-                <p>La Aplicación solicita acceso a:</p>
-                <ul>
-                    <li><strong>Cámara:</strong> utilizada exclusivamente para escanear códigos de barras de productos alimenticios.</li>
-                </ul>
-                <p>No se solicita acceso a la ubicación, contactos, micrófono, archivos, ni ningún otro recurso del dispositivo.</p>
-
-                <h2>4. Almacenamiento y eliminación de datos</h2>
-                <p>Toda la información almacenada por la Aplicación reside exclusivamente en tu dispositivo. Puedes eliminar todos tus datos en cualquier momento:</p>
-                <ul>
-                    <li>Desinstalando la Aplicación elimina permanentemente todos los datos almacenados.</li>
-                    <li>No existe ninguna copia de seguridad en servidores externos, ya que no se envía ningún dato fuera del dispositivo.</li>
-                </ul>
-
-                <h2>5. Menores de edad</h2>
-                <p>La Aplicación no recopila datos personales de ningún usuario, incluyendo menores de edad.</p>
-
-                <h2>6. Cambios en esta política</h2>
-                <p>Si se realizan cambios en esta Política de Privacidad, se publicará la versión actualizada en esta misma página con la fecha de la última actualización.</p>
-
-
+    <nav>
+        <a href="#" class="nav-brand">
+            <img src="play-store-icon.png" alt="Tasting Party">
+            <span>Tasting Party</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features" class="nav-about lang-en">Features</a>
+            <a href="#features" class="nav-about lang-es" style="display:none">Características</a>
+            <a href="#screenshots" class="lang-en">Screenshots</a>
+            <a href="#screenshots" class="lang-es" style="display:none">Capturas</a>
+            <a href="#privacy" class="lang-en">Privacy</a>
+            <a href="#privacy" class="lang-es" style="display:none">Privacidad</a>
+            <div class="lang-toggle">
+                <button id="btn-en" class="active" onclick="switchLang('en')">EN</button>
+                <button id="btn-es" onclick="switchLang('es')">ES</button>
             </div>
-
-            <!-- ENGLISH -->
-            <div id="en" class="lang-section">
-                <p><em>Last updated: August 20, 2026</em></p>
-
-                <h2>1. Introduction</h2>
-                <p>This Privacy Policy describes how the <strong>Tasting Party</strong> application (hereinafter, "the Application"), developed by jlopezlabs, handles information.</p>
-                <p>The Application is free and requires no registration or account creation. All information you enter stays exclusively on your device.</p>
-
-                <h2>2. Information Handled by the Application</h2>
-                <h3>2.1 Data stored on your device</h3>
-                <p>The Application stores the following information locally on your device only:</p>
-                <ul>
-                    <li>Tasting names and descriptions</li>
-                    <li>Products added to tastings (name, brand, quantity)</li>
-                    <li>Tasting scores and notes (1-5 star ratings and free text)</li>
-                    <li>Application language preference</li>
-                </ul>
-                <p>This data is stored exclusively in the device's local storage (AsyncStorage) and is <strong>never sent to any server, cloud service, or external system</strong>.</p>
-
-                <h3>2.2 Data we do NOT collect</h3>
-                <p>The Application <strong>does not collect</strong> any personally identifiable information, including:</p>
-                <ul>
-                    <li>Name, email, phone number, or address</li>
-                    <li>Location data</li>
-                    <li>Device or system information</li>
-                    <li>Usage or analytics data</li>
-                    <li>Any other data that could identify you</li>
-                </ul>
-
-                <h3>2.3 External service connections</h3>
-                <p>The Application may make read-only queries to public food product databases to retrieve information such as product name, brand, and nutritional data. These queries are limited to:</p>
-                <ul>
-                    <li>Searching for products by name or keyword</li>
-                    <li>Looking up products by barcode scanned with the camera</li>
-                </ul>
-                <p>Only the search term or barcode is transmitted. No personal data, user identifiers, or device information is sent.</p>
-
-                <h2>3. Device Permissions</h2>
-                <p>The Application requests access to:</p>
-                <ul>
-                    <li><strong>Camera:</strong> used exclusively to scan product barcodes.</li>
-                </ul>
-                <p>No access is requested to location, contacts, microphone, files, or any other device resources.</p>
-
-                <h2>4. Data Storage and Deletion</h2>
-                <p>All data stored by the Application resides exclusively on your device. You can delete all your data at any time:</p>
-                <ul>
-                    <li>Uninstalling the Application permanently deletes all stored data.</li>
-                    <li>No backup copy exists on external servers, as no data is sent outside the device.</li>
-                </ul>
-
-                <h2>5. Children's Privacy</h2>
-                <p>The Application does not collect personal data from any user, including children.</p>
-
-                <h2>6. Changes to This Policy</h2>
-                <p>If changes are made to this Privacy Policy, the updated version will be published on this page with the date of the last update.</p>
-
-
-            </div>
-
         </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="feature-graphic.png" alt="Tasting Party" class="hero-icon">
+            <div class="lang-hero-en">
+                <h1><span class="gold">Tasting</span> Party</h1>
+                <p class="tagline">Your personal tasting journal, fully offline.</p>
+            </div>
+            <div class="lang-hero-es">
+                <h1><span class="gold">Tasting</span> Party</h1>
+                <p class="tagline">Tu diario de catas personal, totalmente offline.</p>
+            </div>
+            <p class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <div class="hero-buttons">
+                <a href="https://github.com/javierlopezjobs-mad/general-info" class="btn btn-gold">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+                <a href="#features" class="btn btn-outline">
+                    <span class="lang-en">Learn More</span>
+                    <span class="lang-es" style="display:none">Saber Más</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURE GRAPHIC -->
+    <div class="feature-graphic-section">
+        <img src="feature-graphic.png" alt="Tasting Party — Your tasting journal, fully offline">
     </div>
 
+    <!-- FEATURES -->
+    <section id="features">
+        <h2 class="section-title">
+            <span class="lang-en">Everything you need to taste, rate & remember</span>
+            <span class="lang-es" style="display:none">Todo lo que necesitas para catar, puntuar y recordar</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">One app for wines, cheeses, coffees, craft beers, or anything else you enjoy tasting.</span>
+            <span class="lang-es" style="display:none">Una aplicación para vinos, quesos, cafés, cervezas artesanales o lo que sea que disfrutes catar.</span>
+        </p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3><span class="lang-en">Barcode Scanning</span><span class="lang-es" style="display:none">Escaneo de Código de Barras</span></h3>
+                <p><span class="lang-en">Point your camera at any product and add it instantly to your tasting.</span><span class="lang-es" style="display:none">Apunta tu cámara a cualquier producto y añádelo al instante a tu cata.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3><span class="lang-en">Product Search</span><span class="lang-es" style="display:none">Búsqueda de Productos</span></h3>
+                <p><span class="lang-en">Find products by name from a public food database — quick and easy.</span><span class="lang-es" style="display:none">Busca productos por nombre en una base de datos pública — rápido y fácil.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✏️</div>
+                <h3><span class="lang-en">Manual Entry</span><span class="lang-es" style="display:none">Entrada Manual</span></h3>
+                <p><span class="lang-en">Add any product with a name and brand — no barcode needed.</span><span class="lang-es" style="display:none">Añade cualquier producto con nombre y marca — sin código de barras necesario.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3><span class="lang-en">Star Ratings</span><span class="lang-es" style="display:none">Puntuación con Estrellas</span></h3>
+                <p><span class="lang-en">Rate every product from 1 to 5 stars at a glance.</span><span class="lang-es" style="display:none">Puntúa cada producto de 1 a 5 estrellas de un vistazo.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3><span class="lang-en">Personal Notes</span><span class="lang-es" style="display:none">Notas Personales</span></h3>
+                <p><span class="lang-en">Write your own tasting notes — capture flavors, aromas, and impressions.</span><span class="lang-es" style="display:none">Escribe tus propias notas de cata — captura sabores, aromas e impresiones.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍷</div>
+                <h3><span class="lang-en">Tasting Sessions</span><span class="lang-es" style="display:none">Sesiones de Cata</span></h3>
+                <p><span class="lang-en">Group products into named tastings with descriptions — organize everything.</span><span class="lang-es" style="display:none">Agrupa productos en catas con nombre y descripción — organízalo todo.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3><span class="lang-en">Spreadsheet Export</span><span class="lang-es" style="display:none">Exportar a Hoja de Cálculo</span></h3>
+                <p><span class="lang-en">Get a CSV view of your tastings and ratings for Excel or Google Sheets.</span><span class="lang-es" style="display:none">Obtén una vista CSV de tus catas y puntuaciones para Excel o Google Sheets.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3><span class="lang-en">Backup & Restore</span><span class="lang-es" style="display:none">Copia de Seguridad</span></h3>
+                <p><span class="lang-en">Export all your tastings as JSON and import them back anytime.</span><span class="lang-es" style="display:none">Exporta todas tus catas como JSON e impórtalas cuando quieras.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3><span class="lang-en">Bilingual</span><span class="lang-es" style="display:none">Bilingüe</span></h3>
+                <p><span class="lang-en">Available in English and Spanish — switch anytime in settings.</span><span class="lang-es" style="display:none">Disponible en inglés y español — cambia cuando quieras en ajustes.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📴</div>
+                <h3><span class="lang-en">100% Offline</span><span class="lang-es" style="display:none">100% Offline</span></h3>
+                <p><span class="lang-en">All your data stays on your device. No accounts, no cloud, no tracking.</span><span class="lang-es" style="display:none">Todos tus datos se quedan en tu dispositivo. Sin cuentas, sin nube, sin rastreo.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section id="screenshots" class="screenshots">
+        <h2 class="section-title">
+            <span class="lang-en">See it in action</span>
+            <span class="lang-es" style="display:none">Míralo en acción</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">Swipe through the app to see how it looks on your phone.</span>
+            <span class="lang-es" style="display:none">Desliza para ver cómo se ve la app en tu teléfono.</span>
+        </p>
+        <div class="screenshots-track">
+            <div class="screenshot"><img src="screenshots/Screenshot_20260821-083935.png" alt="Screenshot 1"></div>
+            <div class="screenshot"><img src="screenshots/Screenshot_20260821-084011.png" alt="Screenshot 2"></div>
+            <div class="screenshot"><img src="screenshots/Screenshot_20260821-084110.png" alt="Screenshot 3"></div>
+            <div class="screenshot"><img src="screenshots/Screenshot_20260821-084124.png" alt="Screenshot 4"></div>
+            <div class="screenshot"><img src="screenshots/Screenshot_20260821-084136.png" alt="Screenshot 5"></div>
+            <div class="screenshot"><img src="screenshots/Screenshot_20260821-084216.png" alt="Screenshot 6"></div>
+            <div class="screenshot"><img src="screenshots/Screenshot_20260821-084303.png" alt="Screenshot 7"></div>
+        </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="privacy" class="privacy">
+        <h2 class="section-title">
+            <span class="lang-en">Your data, your device</span>
+            <span class="lang-es" style="display:none">Tus datos, tu dispositivo</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">Tasting Party is built privacy-first. No accounts, no cloud sync, no data leaves your phone.</span>
+            <span class="lang-es" style="display:none">Tasting Party está construido con la privacidad primero. Sin cuentas, sin sincronización en la nube, ningún dato sale de tu teléfono.</span>
+        </p>
+        <div class="privacy-content">
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>No accounts required</strong> — just open and start tasting.</span><span class="lang-es" style="display:none"><strong>Sin cuentas requeridas</strong> — simplemente abre y empieza a catar.</span></p>
+            </div>
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>All data stored locally</strong> — nothing is sent to any server.</span><span class="lang-es" style="display:none"><strong>Todos los datos se guardan localmente</strong> — nada se envía a ningún servidor.</span></p>
+            </div>
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>No analytics or tracking</strong> — we don't know how you use the app.</span><span class="lang-es" style="display:none"><strong>Sin análisis ni rastreo</strong> — no sabemos cómo usas la app.</span></p>
+            </div>
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>Full control</strong> — export, back up, or delete your data anytime.</span><span class="lang-es" style="display:none"><strong>Control total</strong> — exporta, respalda o elimina tus datos cuando quieras.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
+        <div class="footer-links">
+            <a href="https://github.com/javierlopezjobs-mad/general-info">GitHub</a>
+            <a href="https://github.com/javierlopezjobs-mad/general-info/blob/main/index.html#privacy">Privacy Policy</a>
+            <a href="https://github.com/javierlopezjobs-mad/general-info/blob/main/release-notes.md">Release Notes</a>
+        </div>
         <p>&copy; 2026 jlopezlabs — Tasting Party</p>
     </footer>
 
     <script>
         function switchLang(lang) {
-            document.querySelectorAll('.lang-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.remove('active'));
-            document.getElementById(lang).classList.add('active');
-            document.getElementById('btn-' + lang).classList.add('active');
+            document.body.classList.toggle('es', lang === 'es');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+            document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+            document.querySelectorAll('.lang-es').forEach(el => el.style.display = lang === 'es' ? '' : 'none');
         }
     </script>
 </body>
