@@ -150,6 +150,11 @@
             scrollbar-width: thin;
             scrollbar-color: var(--gold) var(--card-bg);
         }
+        .screenshots-track::before,
+        .screenshots-track::after {
+            content: '';
+            margin: auto;
+        }
         .screenshots-track::-webkit-scrollbar { height: 6px; }
         .screenshots-track::-webkit-scrollbar-track { background: var(--card-bg); border-radius: 3px; }
         .screenshots-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
@@ -332,13 +337,13 @@
             <span class="lang-es" style="display:none">Desliza para ver cómo se ve la app en tu teléfono.</span>
         </p>
         <div class="screenshots-track">
-            <div class="screenshot"><img data-screenshot="Screenshot_20260821-083935.png" alt="Captura 1"></div>
-            <div class="screenshot"><img data-screenshot="Screenshot_20260821-084011.png" alt="Captura 2"></div>
-            <div class="screenshot"><img data-screenshot="Screenshot_20260821-084110.png" alt="Captura 3"></div>
-            <div class="screenshot"><img data-screenshot="Screenshot_20260821-084124.png" alt="Captura 4"></div>
-            <div class="screenshot"><img data-screenshot="Screenshot_20260821-084136.png" alt="Captura 5"></div>
-            <div class="screenshot"><img data-screenshot="Screenshot_20260821-084216.png" alt="Captura 6"></div>
-            <div class="screenshot"><img data-screenshot="Screenshot_20260821-084303.png" alt="Captura 7"></div>
+            <div class="screenshot"><img data-screenshot="0" alt="Captura 1"></div>
+            <div class="screenshot"><img data-screenshot="1" alt="Captura 2"></div>
+            <div class="screenshot"><img data-screenshot="2" alt="Captura 3"></div>
+            <div class="screenshot"><img data-screenshot="3" alt="Captura 4"></div>
+            <div class="screenshot"><img data-screenshot="4" alt="Captura 5"></div>
+            <div class="screenshot"><img data-screenshot="5" alt="Captura 6"></div>
+            <div class="screenshot"><img data-screenshot="6" alt="Captura 7"></div>
         </div>
     </section>
 
@@ -382,14 +387,41 @@
     </footer>
 
     <script>
+        var screenshotSets = {
+            en: [
+                'Screenshot_20260903-123706.png',
+                'Screenshot_20260903-123712.png',
+                'Screenshot_20260903-123742.png',
+                'Screenshot_20260903-123749.png',
+                'Screenshot_20260903-123759.png',
+                'Screenshot_20260903-123810.png',
+                'Screenshot_20260903-123821.png'
+            ],
+            es: [
+                'Screenshot_20260907-094443.png',
+                'Screenshot_20260907-094453.png',
+                'Screenshot_20260907-094503.png',
+                'Screenshot_20260907-094511.png',
+                'Screenshot_20260907-094520.png',
+                'Screenshot_20260907-094531.png'
+            ]
+        };
         function switchLang(lang) {
             document.body.classList.toggle('es', lang === 'es');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             document.getElementById('btn-es').classList.toggle('active', lang === 'es');
             document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
             document.querySelectorAll('.lang-es').forEach(el => el.style.display = lang === 'es' ? '' : 'none');
-            document.querySelectorAll('.screenshot img').forEach(function(img) {
-                img.src = 'screenshots/0_1_4_' + lang + '/' + img.getAttribute('data-screenshot');
+            var set = screenshotSets[lang] || screenshotSets.es;
+            var imgs = document.querySelectorAll('.screenshot img');
+            imgs.forEach(function(img) {
+                var i = parseInt(img.getAttribute('data-screenshot'), 10);
+                if (set[i]) {
+                    img.style.display = 'block';
+                    img.src = 'screenshots/0_1_4_' + lang + '/' + set[i];
+                } else {
+                    img.style.display = 'none';
+                }
             });
             var url = new URL(window.location);
             url.searchParams.set('lang', lang);
