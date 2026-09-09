@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasting Partner — Tu diario de catas personal, totalmente offline</title>
+    <meta name="description" content="Puntúa y reseña productos de comida y bebida. Tu diario de catas personal, totalmente offline.">
+    <style>
+        :root {
+            --bg-dark: #25292E;
+            --bg-darker: #1a1d21;
+            --gold: #ffd33d;
+            --gold-hover: #ffe066;
+            --white: #ffffff;
+            --gray-light: #b0b8c1;
+            --gray-mid: #8b949e;
+            --card-bg: #2d3239;
+            --card-border: #3d434a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--white);
+            background: var(--bg-dark);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(37,41,46,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0.8rem 2rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+        .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
+        .nav-brand span { color: var(--white); font-weight: 700; font-size: 1.1rem; }
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links a { color: var(--gray-light); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .lang-toggle {
+            display: flex; gap: 2px;
+            background: var(--card-bg); border-radius: 6px; overflow: hidden;
+        }
+        .lang-toggle button {
+            padding: 0.35rem 0.8rem; border: none; background: transparent;
+            color: var(--gray-light); cursor: pointer; font-size: 0.85rem; transition: all 0.2s;
+        }
+        .lang-toggle button.active { background: var(--gold); color: var(--bg-dark); font-weight: 600; }
+        .lang-toggle button:hover:not(.active) { color: var(--white); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at center, rgba(255,211,61,0.06) 0%, transparent 60%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+        .hero-icon {
+            width: 140px; height: 140px; border-radius: 32px;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 32px rgba(255,211,61,0.25);
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .hero h1 .gold { color: var(--gold); }
+        .hero .tagline { font-size: 1.25rem; color: var(--gray-light); margin-bottom: 0.5rem; }
+        .hero .stars { font-size: 1.5rem; color: var(--gold); margin-bottom: 2rem; letter-spacing: 4px; }
+        .lang-hero-es { display: none; }
+        body.es .lang-hero-es { display: block; }
+        body.es .lang-hero-en { display: none; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.9rem 2rem; border-radius: 12px;
+            font-size: 1rem; font-weight: 600; text-decoration: none;
+            transition: all 0.25s; cursor: pointer; border: none;
+        }
+        .btn-gold { background: var(--gold); color: var(--bg-dark); }
+        .btn-gold:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,211,61,0.3); }
+        .btn-outline { border: 1.5px solid var(--card-border); color: var(--gray-light); background: transparent; }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* FEATURE GRAPHIC */
+        .feature-graphic-section {
+            padding: 2rem 2rem 4rem;
+            display: flex; justify-content: center;
+        }
+        .feature-graphic-section img {
+            width: 100%; max-width: 900px; height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        /* SECTIONS */
+        section { padding: 5rem 2rem; }
+        .section-title {
+            text-align: center; font-size: 2rem; font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--gray-light); font-size: 1.05rem;
+            max-width: 600px; margin: 0 auto 3rem;
+        }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+        .feature-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+        .feature-card p { color: var(--gray-light); font-size: 0.92rem; }
+
+        /* SCREENSHOTS */
+        .screenshots {
+            overflow: hidden;
+            padding: 5rem 0;
+        }
+        .screenshots .section-title,
+        .screenshots .section-subtitle { padding: 0 2rem; }
+        .screenshots-track {
+            display: flex; gap: 1.25rem;
+            padding: 1rem 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--card-bg);
+        }
+        .screenshots-track::before,
+        .screenshots-track::after {
+            content: '';
+            margin: auto;
+        }
+        .screenshots-track::-webkit-scrollbar { height: 6px; }
+        .screenshots-track::-webkit-scrollbar-track { background: var(--card-bg); border-radius: 3px; }
+        .screenshots-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+        .screenshot {
+            flex: 0 0 auto;
+            width: 240px;
+            scroll-snap-align: center;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--card-border);
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .screenshot:hover { border-color: var(--gold); transform: scale(1.03); }
+        .screenshot img { width: 100%; display: block; }
+
+        /* PRIVACY */
+        .privacy {
+            background: var(--bg-darker);
+        }
+        .privacy-content {
+            max-width: 800px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+            align-items: start;
+        }
+        .privacy-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .privacy-check {
+            flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+            background: rgba(255,211,61,0.15); display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-weight: 700; font-size: 0.9rem;
+        }
+        .privacy-item p { color: var(--gray-light); font-size: 0.95rem; }
+        .privacy-item strong { color: var(--white); }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid var(--card-border);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+        .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+        .footer-links a { color: var(--gray-mid); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+        footer p { color: var(--gray-mid); font-size: 0.8rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero .tagline { font-size: 1.05rem; }
+            nav { padding: 0.6rem 1rem; }
+            .nav-links { gap: 0.8rem; }
+            .privacy-content { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.6rem; }
+            section { padding: 3.5rem 1.5rem; }
+            .screenshot { width: 180px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links a.nav-about { display: none; }
+        }
+    </style>
+</head>
+<body class="es">
+    <nav>
+        <a href="index.html" class="nav-brand">
+            <img src="play-store-icon.png" alt="Tasting Partner">
+            <span>Tasting Partner</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features" class="nav-about lang-en">Features</a>
+            <a href="#features" class="nav-about lang-es" style="display:none">Características</a>
+            <a href="#screenshots" class="lang-en">Screenshots</a>
+            <a href="#screenshots" class="lang-es" style="display:none">Capturas</a>
+            <a href="#privacy" class="lang-en">Privacy</a>
+            <a href="#privacy" class="lang-es" style="display:none">Privacidad</a>
+            <div class="lang-toggle">
+                <button id="btn-es" class="active" onclick="switchLang('es')">ES</button>
+                <button id="btn-en" onclick="switchLang('en')">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="play-store-icon.png" alt="Tasting Partner" class="hero-icon">
+            <div class="lang-hero-en">
+                <h1><span class="gold">Tasting</span> Partner</h1>
+                <p class="tagline">Your personal tasting journal, fully offline.</p>
+            </div>
+            <div class="lang-hero-es">
+                <h1><span class="gold">Tasting</span> Partner</h1>
+                <p class="tagline">Tu diario de catas personal, totalmente offline.</p>
+            </div>
+            <p class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <a href="#features" class="btn btn-gold">
+                <span class="lang-en">Learn More</span>
+                <span class="lang-es" style="display:none">Saber Más</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- FEATURE GRAPHIC -->
+    <div class="feature-graphic-section">
+        <img src="feature-graphic.png" alt="Tasting Partner — Tu diario de catas personal, totalmente offline">
+    </div>
+
+    <!-- FEATURES -->
+    <section id="features">
+        <h2 class="section-title">
+            <span class="lang-en">Everything you need to taste, rate & remember</span>
+            <span class="lang-es" style="display:none">Todo lo que necesitas para catar, puntuar y recordar</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">One app for wines, cheeses, coffees, craft beers, or anything else you enjoy tasting.</span>
+            <span class="lang-es" style="display:none">Una aplicación para vinos, quesos, cafés, cervezas artesanales o lo que sea que disfrutes catar.</span>
+        </p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3><span class="lang-en">Barcode Scanning</span><span class="lang-es" style="display:none">Escaneo de Código de Barras</span></h3>
+                <p><span class="lang-en">Point your camera at any product and add it instantly to your tasting.</span><span class="lang-es" style="display:none">Apunta tu cámara a cualquier producto y añádelo al instante a tu cata.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3><span class="lang-en">Product Search</span><span class="lang-es" style="display:none">Búsqueda de Productos</span></h3>
+                <p><span class="lang-en">Find products by name from a public food database — quick and easy.</span><span class="lang-es" style="display:none">Busca productos por nombre en una base de datos pública — rápido y fácil.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✏️</div>
+                <h3><span class="lang-en">Manual Entry</span><span class="lang-es" style="display:none">Entrada Manual</span></h3>
+                <p><span class="lang-en">Add any product with a name and brand — no barcode needed.</span><span class="lang-es" style="display:none">Añade cualquier producto con nombre y marca — sin código de barras necesario.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3><span class="lang-en">Star Ratings</span><span class="lang-es" style="display:none">Puntuación con Estrellas</span></h3>
+                <p><span class="lang-en">Rate every product from 1 to 5 stars at a glance.</span><span class="lang-es" style="display:none">Puntúa cada producto de 1 a 5 estrellas de un vistazo.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3><span class="lang-en">Personal Notes</span><span class="lang-es" style="display:none">Notas Personales</span></h3>
+                <p><span class="lang-en">Write your own tasting notes — capture flavors, aromas, and impressions.</span><span class="lang-es" style="display:none">Escribe tus propias notas de cata — captura sabores, aromas e impresiones.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍷</div>
+                <h3><span class="lang-en">Tasting Sessions</span><span class="lang-es" style="display:none">Sesiones de Cata</span></h3>
+                <p><span class="lang-en">Group products into named tastings with descriptions — organize everything.</span><span class="lang-es" style="display:none">Agrupa productos en catas con nombre y descripción — organízalo todo.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3><span class="lang-en">Spreadsheet Export</span><span class="lang-es" style="display:none">Exportar a Hoja de Cálculo</span></h3>
+                <p><span class="lang-en">Get a CSV view of your tastings and ratings for Excel or Google Sheets.</span><span class="lang-es" style="display:none">Obtén una vista CSV de tus catas y puntuaciones para Excel o Google Sheets.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3><span class="lang-en">Backup & Restore</span><span class="lang-es" style="display:none">Copia de Seguridad</span></h3>
+                <p><span class="lang-en">Export all your tastings as JSON and import them back anytime.</span><span class="lang-es" style="display:none">Exporta todas tus catas como JSON e impórtalas cuando quieras.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3><span class="lang-en">Bilingual</span><span class="lang-es" style="display:none">Bilingüe</span></h3>
+                <p><span class="lang-en">Available in English and Spanish — switch anytime in settings.</span><span class="lang-es" style="display:none">Disponible en inglés y español — cambia cuando quieras en ajustes.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📴</div>
+                <h3><span class="lang-en">100% Offline</span><span class="lang-es" style="display:none">100% Offline</span></h3>
+                <p><span class="lang-en">All your data stays on your device. No accounts, no cloud, no tracking.</span><span class="lang-es" style="display:none">Todos tus datos se quedan en tu dispositivo. Sin cuentas, sin nube, sin rastreo.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section id="screenshots" class="screenshots">
+        <h2 class="section-title">
+            <span class="lang-en">See it in action</span>
+            <span class="lang-es" style="display:none">Míralo en acción</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">Swipe through the app to see how it looks on your phone.</span>
+            <span class="lang-es" style="display:none">Desliza para ver cómo se ve la app en tu teléfono.</span>
+        </p>
+        <div class="screenshots-track">
+            <div class="screenshot"><img data-screenshot="0" alt="Captura 1"></div>
+            <div class="screenshot"><img data-screenshot="1" alt="Captura 2"></div>
+            <div class="screenshot"><img data-screenshot="2" alt="Captura 3"></div>
+            <div class="screenshot"><img data-screenshot="3" alt="Captura 4"></div>
+            <div class="screenshot"><img data-screenshot="4" alt="Captura 5"></div>
+            <div class="screenshot"><img data-screenshot="5" alt="Captura 6"></div>
+            <div class="screenshot"><img data-screenshot="6" alt="Captura 7"></div>
+        </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="privacy" class="privacy">
+        <h2 class="section-title">
+            <span class="lang-en">Your data, your device</span>
+            <span class="lang-es" style="display:none">Tus datos, tu dispositivo</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">Tasting Partner is built privacy-first. No accounts, no cloud sync, no data leaves your phone.</span>
+            <span class="lang-es" style="display:none">Tasting Partner está construido con la privacidad primero. Sin cuentas, sin sincronización en la nube, ningún dato sale de tu teléfono.</span>
+        </p>
+        <div class="privacy-content">
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>No accounts required</strong> — just open and start tasting.</span><span class="lang-es" style="display:none"><strong>Sin cuentas requeridas</strong> — simplemente abre y empieza a catar.</span></p>
+            </div>
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>All data stored locally</strong> — nothing is sent to any server.</span><span class="lang-es" style="display:none"><strong>Todos los datos se guardan localmente</strong> — nada se envía a ningún servidor.</span></p>
+            </div>
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>No analytics or tracking</strong> — we don't know how you use the app.</span><span class="lang-es" style="display:none"><strong>Sin análisis ni rastreo</strong> — no sabemos cómo usas la app.</span></p>
+            </div>
+            <div class="privacy-item">
+                <div class="privacy-check">&#10003;</div>
+                <p><span class="lang-en"><strong>Full control</strong> — export, back up, or delete your data anytime.</span><span class="lang-es" style="display:none"><strong>Control total</strong> — exporta, respalda o elimina tus datos cuando quieras.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="release-notes.md">Release Notes</a>
+            <a href="index.html">Back to JL Horizon Labs</a>
+        </div>
+        <p>&copy; 2026 jlopezlabs — Tasting Partner</p>
+    </footer>
+
+    <script>
+        var screenshotSets = {
+            en: [
+                'Screenshot_20260903-123706.png',
+                'Screenshot_20260903-123712.png',
+                'Screenshot_20260903-123742.png',
+                'Screenshot_20260903-123749.png',
+                'Screenshot_20260903-123759.png',
+                'Screenshot_20260903-123810.png',
+                'Screenshot_20260903-123821.png'
+            ],
+            es: [
+                'Screenshot_20260907-094443.png',
+                'Screenshot_20260907-094453.png',
+                'Screenshot_20260907-094503.png',
+                'Screenshot_20260907-094511.png',
+                'Screenshot_20260907-094520.png',
+                'Screenshot_20260907-094531.png'
+            ]
+        };
+        function switchLang(lang) {
+            document.body.classList.toggle('es', lang === 'es');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+            document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+            document.querySelectorAll('.lang-es').forEach(el => el.style.display = lang === 'es' ? '' : 'none');
+            var set = screenshotSets[lang] || screenshotSets.es;
+            var imgs = document.querySelectorAll('.screenshot img');
+            imgs.forEach(function(img) {
+                var i = parseInt(img.getAttribute('data-screenshot'), 10);
+                if (set[i]) {
+                    img.style.display = 'block';
+                    img.src = 'screenshots/0_1_4_' + lang + '/' + set[i];
+                } else {
+                    img.style.display = 'none';
+                }
+            });
+            var url = new URL(window.location);
+            url.searchParams.set('lang', lang);
+            window.history.replaceState({}, '', url);
+        }
+        var params = new URLSearchParams(window.location.search);
+        switchLang(params.get('lang') || 'es');
+    </script>
+</body>
+</html>
