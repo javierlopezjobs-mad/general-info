@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,6 @@
             --bg-darker: #090b10;
             --accent: #6366f1;
             --accent-light: #818cf8;
-            --accent-glow: rgba(99,102,241,0.15);
             --white: #ffffff;
             --gray-light: #a1a1aa;
             --gray-mid: #71717a;
@@ -39,9 +38,19 @@
         .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
         .nav-brand span { color: var(--white); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
         .nav-brand .accent { color: var(--accent-light); }
-        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; align-items: center; gap: 1.2rem; }
         .nav-links a { color: var(--gray-light); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
         .nav-links a:hover { color: var(--accent-light); }
+        .lang-toggle {
+            display: flex; gap: 2px;
+            background: var(--card-bg); border-radius: 6px; overflow: hidden;
+        }
+        .lang-toggle button {
+            padding: 0.35rem 0.8rem; border: none; background: transparent;
+            color: var(--gray-light); cursor: pointer; font-size: 0.85rem; transition: all 0.2s;
+        }
+        .lang-toggle button.active { background: var(--accent); color: var(--white); font-weight: 600; }
+        .lang-toggle button:hover:not(.active) { color: var(--white); }
 
         /* HERO */
         .hero {
@@ -60,7 +69,7 @@
         }
         @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .hero-content { position: relative; z-index: 1; max-width: 800px; }
-        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.1; letter-spacing: -0.03em; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.15; letter-spacing: -0.03em; }
         .hero h1 .accent { color: var(--accent-light); }
         .hero .tagline { font-size: 1.25rem; color: var(--gray-light); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
 
@@ -164,7 +173,7 @@
             padding: 2.5rem 2rem;
             text-align: center;
         }
-        .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+        .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
         .footer-links a { color: var(--gray-mid); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
         .footer-links a:hover { color: var(--accent-light); }
         footer p { color: var(--gray-mid); font-size: 0.8rem; }
@@ -182,83 +191,155 @@
         @media (max-width: 480px) {
             .hero h1 { font-size: 2rem; }
             .nav-links a.nav-about { display: none; }
+            .nav-links { gap: 0.6rem; }
         }
     </style>
 </head>
-<body>
+<body class="es">
     <nav>
         <a href="#" class="nav-brand">
             <span><span class="accent">JL</span> Horizon Labs</span>
         </a>
         <div class="nav-links">
-            <a href="#services" class="nav-about">Services</a>
-            <a href="#about">About</a>
-            <a href="#products">Products</a>
-            <a href="#contact">Contact</a>
+            <a href="#services" class="nav-about lang-en">Services</a>
+            <a href="#services" class="nav-about lang-es" style="display:none">Servicios</a>
+            <a href="#about" class="lang-en">About</a>
+            <a href="#about" class="lang-es" style="display:none">Nosotros</a>
+            <a href="#products" class="lang-en">Products</a>
+            <a href="#products" class="lang-es" style="display:none">Productos</a>
+            <a href="#contact" class="lang-en">Contact</a>
+            <a href="#contact" class="lang-es" style="display:none">Contacto</a>
+            <div class="lang-toggle">
+                <button id="btn-es" class="active" onclick="switchLang('es')">ES</button>
+                <button id="btn-en" onclick="switchLang('en')">EN</button>
+            </div>
         </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Building the Future with <span class="accent">Code</span>, <span class="accent">Strategy</span> & <span class="accent">AI</span></h1>
-            <p class="tagline">We craft innovative software, drive product excellence, and unlock the potential of artificial intelligence for forward-thinking businesses.</p>
+            <h1>
+                <span class="lang-en">Building the Future with <span class="accent">Code</span>, <span class="accent">Strategy</span> & <span class="accent">AI</span></span>
+                <span class="lang-es" style="display:none">Construyendo el Futuro con <span class="accent">Código</span>, <span class="accent">Estrategia</span> e <span class="accent">IA</span></span>
+            </h1>
+            <p class="tagline">
+                <span class="lang-en">We craft innovative software, drive product excellence, and unlock the potential of artificial intelligence for forward-thinking businesses.</span>
+                <span class="lang-es" style="display:none">Creamos software innovador, impulsamos la excelencia de producto y desbloqueamos el potencial de la inteligencia artificial para empresas con visión de futuro.</span>
+            </p>
             <div class="hero-buttons">
-                <a href="#services" class="btn btn-accent">Our Services</a>
-                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                <a href="#services" class="btn btn-accent">
+                    <span class="lang-en">Our Services</span>
+                    <span class="lang-es" style="display:none">Nuestros Servicios</span>
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <span class="lang-en">Get in Touch</span>
+                    <span class="lang-es" style="display:none">Contáctanos</span>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- SERVICES -->
     <section id="services">
-        <h2 class="section-title">What We Do</h2>
-        <p class="section-subtitle">End-to-end technology solutions tailored to your business needs.</p>
+        <h2 class="section-title">
+            <span class="lang-en">What We Do</span>
+            <span class="lang-es" style="display:none">Qué Hacemos</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">End-to-end technology solutions tailored to your business needs.</span>
+            <span class="lang-es" style="display:none">Soluciones tecnológicas de principio a fin, adaptadas a las necesidades de tu negocio.</span>
+        </p>
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon">&#128187;</div>
-                <h3>Software Development</h3>
-                <p>From MVPs to enterprise platforms — we build robust, scalable applications using modern tech stacks and best practices.</p>
+                <h3>
+                    <span class="lang-en">Software Development</span>
+                    <span class="lang-es" style="display:none">Desarrollo de Software</span>
+                </h3>
+                <p>
+                    <span class="lang-en">From MVPs to enterprise platforms — we build robust, scalable applications using modern tech stacks and best practices.</span>
+                    <span class="lang-es" style="display:none">Desde MVPs hasta plataformas empresariales — construimos aplicaciones robustas y escalables con stacks tecnológicos modernos y mejores prácticas.</span>
+                </p>
             </div>
             <div class="service-card">
                 <div class="service-icon">&#128202;</div>
-                <h3>Product Management</h3>
-                <p>Strategic product thinking from discovery to delivery. We help you build the right product, the right way, at the right time.</p>
+                <h3>
+                    <span class="lang-en">Product Management</span>
+                    <span class="lang-es" style="display:none">Gestión de Producto</span>
+                </h3>
+                <p>
+                    <span class="lang-en">Strategic product thinking from discovery to delivery. We help you build the right product, the right way, at the right time.</span>
+                    <span class="lang-es" style="display:none">Pensamiento estratégico de producto, del descubrimiento a la entrega. Te ayudamos a construir el producto correcto, de la manera correcta, en el momento correcto.</span>
+                </p>
             </div>
             <div class="service-card">
                 <div class="service-icon">&#129302;</div>
-                <h3>AI Consulting</h3>
-                <p>Navigate the AI landscape with confidence. We identify opportunities, design intelligent solutions, and integrate AI into your workflows.</p>
+                <h3>
+                    <span class="lang-en">AI Consulting</span>
+                    <span class="lang-es" style="display:none">Consultoría de IA</span>
+                </h3>
+                <p>
+                    <span class="lang-en">Navigate the AI landscape with confidence. We identify opportunities, design intelligent solutions, and integrate AI into your workflows.</span>
+                    <span class="lang-es" style="display:none">Navega el panorama de la IA con confianza. Identificamos oportunidades, diseñamos soluciones inteligentes e integramos la IA en tus flujos de trabajo.</span>
+                </p>
             </div>
         </div>
     </section>
 
     <!-- ABOUT -->
     <section id="about" class="about">
-        <h2 class="section-title">About Us</h2>
-        <p class="section-subtitle">A boutique studio with big ambitions.</p>
+        <h2 class="section-title">
+            <span class="lang-en">About Us</span>
+            <span class="lang-es" style="display:none">Sobre Nosotros</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">A boutique studio with big ambitions.</span>
+            <span class="lang-es" style="display:none">Un estudio boutique con grandes ambiciones.</span>
+        </p>
         <div class="about-content">
             <div class="about-text">
-                <p><strong>JL Horizon Labs</strong> is a technology consultancy founded on the belief that great software comes from the intersection of deep technical skill, thoughtful product design, and intelligent automation.</p>
-                <p>We partner with startups, scale-ups, and established enterprises to turn complex challenges into elegant solutions — whether that means building a new product from scratch, rethinking your product strategy, or harnessing AI to gain a competitive edge.</p>
-                <p><strong>Our mission:</strong> empower businesses to innovate faster and smarter through technology.</p>
+                <p>
+                    <span class="lang-en"><strong>JL Horizon Labs</strong> is a technology consultancy founded on the belief that great software comes from the intersection of deep technical skill, thoughtful product design, and intelligent automation.</span>
+                    <span class="lang-es" style="display:none"><strong>JL Horizon Labs</strong> es una consultora tecnológica fundada con la convicción de que el gran software nace de la intersección entre el talento técnico profundo, el diseño de producto reflexivo y la automatización inteligente.</span>
+                </p>
+                <p>
+                    <span class="lang-en">We partner with startups, scale-ups, and established enterprises to turn complex challenges into elegant solutions — whether that means building a new product from scratch, rethinking your product strategy, or harnessing AI to gain a competitive edge.</span>
+                    <span class="lang-es" style="display:none">Colaboramos con startups, scale-ups y empresas consolidadas para convertir desafíos complejos en soluciones elegantes — ya sea construir un producto desde cero, repensar tu estrategia de producto o aprovechar la IA para obtener una ventaja competitiva.</span>
+                </p>
+                <p>
+                    <span class="lang-en"><strong>Our mission:</strong> empower businesses to innovate faster and smarter through technology.</span>
+                    <span class="lang-es" style="display:none"><strong>Nuestra misión:</strong> capacitar a las empresas para innovar más rápido y de forma más inteligente a través de la tecnología.</span>
+                </p>
             </div>
             <div class="about-stats">
                 <div class="stat">
                     <div class="stat-number">3</div>
-                    <div class="stat-label">Core Practices</div>
+                    <div class="stat-label">
+                        <span class="lang-en">Core Practices</span>
+                        <span class="lang-es" style="display:none">Prácticas Principales</span>
+                    </div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">100%</div>
-                    <div class="stat-label">Remote-First</div>
+                    <div class="stat-label">
+                        <span class="lang-en">Remote-First</span>
+                        <span class="lang-es" style="display:none">Primero Remoto</span>
+                    </div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">&infin;</div>
-                    <div class="stat-label">Curiosity Driven</div>
+                    <div class="stat-label">
+                        <span class="lang-en">Curiosity Driven</span>
+                        <span class="lang-es" style="display:none">Impulsados por la Curiosidad</span>
+                    </div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">2026</div>
-                    <div class="stat-label">Founded</div>
+                    <div class="stat-label">
+                        <span class="lang-en">Founded</span>
+                        <span class="lang-es" style="display:none">Fundado</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -266,36 +347,76 @@
 
     <!-- PRODUCTS -->
     <section id="products" class="products">
-        <h2 class="section-title">Our Products</h2>
-        <p class="section-subtitle">Software we've built and shipped.</p>
+        <h2 class="section-title">
+            <span class="lang-en">Our Products</span>
+            <span class="lang-es" style="display:none">Nuestros Productos</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">Software we've built and shipped.</span>
+            <span class="lang-es" style="display:none">Software que hemos construido y lanzado.</span>
+        </p>
         <div class="products-grid">
             <div class="product-card">
                 <h3>&#127863; Tasting Partner</h3>
-                <p>A fully offline personal tasting journal for wines, cheeses, coffees, craft beers, and more. Rated 5 stars.</p>
-                <a href="tasting-partner.html" class="product-link">Learn more &rarr;</a>
+                <p>
+                    <span class="lang-en">A fully offline personal tasting journal for wines, cheeses, coffees, craft beers, and more. Rated 5 stars.</span>
+                    <span class="lang-es" style="display:none">Un diario de catas personal, totalmente offline, para vinos, quesos, cafés, cervezas artesanales y más. Calificado con 5 estrellas.</span>
+                </p>
+                <a href="tasting-partner.html" class="product-link">
+                    <span class="lang-en">Learn more &rarr;</span>
+                    <span class="lang-es" style="display:none">Saber más &rarr;</span>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact">
-        <h2 class="section-title">Let's Talk</h2>
-        <p class="section-subtitle">Have a project in mind or want to explore how we can help?</p>
+        <h2 class="section-title">
+            <span class="lang-en">Let's Talk</span>
+            <span class="lang-es" style="display:none">Hablemos</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-en">Have a project in mind or want to explore how we can help?</span>
+            <span class="lang-es" style="display:none">¿Tienes un proyecto en mente o quieres explorar cómo podemos ayudarte?</span>
+        </p>
         <div class="contact-content">
-            <p>We're always open to interesting conversations — whether you need a technical partner, product guidance, or AI strategy.</p>
-            <a href="mailto:hello@jlhorizonlabs.com" class="contact-email">hello@jlhorizonlabs.com</a>
+            <p>
+                <span class="lang-en">We're always open to interesting conversations — whether you need a technical partner, product guidance, or AI strategy.</span>
+                <span class="lang-es" style="display:none">Siempre estamos abiertos a conversaciones interesantes — ya sea que necesites un socio técnico, orientación de producto o estrategia de IA.</span>
+            </p>
+            <a href="mailto:info@jlhorizonlabs.com" class="contact-email">info@jlhorizonlabs.com</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
         <div class="footer-links">
-            <a href="#services">Services</a>
-            <a href="#about">About</a>
-            <a href="#products">Products</a>
-            <a href="#contact">Contact</a>
+            <a href="#services" class="lang-en">Services</a>
+            <a href="#services" class="lang-es" style="display:none">Servicios</a>
+            <a href="#about" class="lang-en">About</a>
+            <a href="#about" class="lang-es" style="display:none">Nosotros</a>
+            <a href="#products" class="lang-en">Products</a>
+            <a href="#products" class="lang-es" style="display:none">Productos</a>
+            <a href="#contact" class="lang-en">Contact</a>
+            <a href="#contact" class="lang-es" style="display:none">Contacto</a>
         </div>
         <p>&copy; 2026 JL Horizon Labs</p>
     </footer>
+
+    <script>
+        function switchLang(lang) {
+            document.body.classList.toggle('es', lang === 'es');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+            document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+            document.querySelectorAll('.lang-es').forEach(el => el.style.display = lang === 'es' ? '' : 'none');
+            var url = new URL(window.location);
+            url.searchParams.set('lang', lang);
+            window.history.replaceState({}, '', url);
+        }
+        var params = new URLSearchParams(window.location.search);
+        switchLang(params.get('lang') || 'es');
+    </script>
 </body>
 </html>
