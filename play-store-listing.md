@@ -27,6 +27,7 @@ Rate and review food & drink products. Your tasting journal, fully offline. (79 
 - **Manual entry** — add any product with name and brand
 - **Star ratings** — rate every product from 1 to 5
 - **Personal notes** — write your own tasting notes per product
+- **Voice notes** — dictate your tasting notes with the microphone and have them transcribed on-device, in English or Spanish
 - **Tasting sessions** — group products into named tastings with descriptions
 - **All products view** — see every product across all your tastings, sorted by most recent
 - **Backup & restore** — export all your tastings as a JSON backup and import it back anytime, or move it to another device
@@ -74,3 +75,4 @@ Whether you're tasting wines, cheeses, coffees, craft beers, or anything else, T
 - **2026-08-21** — Initial draft with barcode scanning, product search, star ratings, notes, tasting sessions, bilingual support, offline-first.
 - **2026-08-21** — Added 7 phone screenshots (1080x2400) and 512x512 Play Store icon.
 - **2026-08-21** — New feature: Settings → Data with JSON backup export/import (share sheet on Android/iOS, browser download on web) and one-way CSV spreadsheet export.
+- **2026-09-16** — New feature: voice notes — dictate tasting notes with the microphone; speech is transcribed entirely on-device in the app's language (English or Spanish). First use downloads a speech model once; afterwards it works offline.
