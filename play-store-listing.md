@@ -56,10 +56,10 @@ Located in `screenshots/0_1_6_en/`.
 | 5 | Screenshot_20261112-154758.png | Product details with rating and nutrition |
 | 6 | Screenshot_20261112-154721.png | Settings: language, daily reminder, data, rating scale |
 
-The older English set in `screenshots/0_1_4_en/` and the Spanish set in
-`screenshots/0_1_4_es/` are kept for reference. The landing page uses the
-v0.1.6 English set and the v0.1.4 Spanish set until Spanish v0.1.6 captures are
-available.
+The older English set in `screenshots/0_1_4_en/` is kept for reference. The
+Spanish carousel temporarily reuses the v0.1.6 English screenshots (stored under
+the existing filenames in `screenshots/0_1_4_es/`) until Spanish v0.1.6 captures
+are available.
 
 ---
 
