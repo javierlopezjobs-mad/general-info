@@ -305,6 +305,11 @@
                 <p><span class="lang-en">Dictate your tasting notes with the microphone — transcribed right on your device, in English or Spanish.</span><span class="lang-es" style="display:none">Dicta tus notas de cata con el micrófono — transcritas directamente en tu dispositivo, en inglés o español.</span></p>
             </div>
             <div class="feature-card">
+                <div class="feature-icon">🥗</div>
+                <h3><span class="lang-en">Nutrition Details</span><span class="lang-es" style="display:none">Detalles Nutricionales</span></h3>
+                <p><span class="lang-en">See ingredients, calories, proteins, sugars, saturated fat, fibre, sodium and alcohol for each product. Empty fields stay hidden.</span><span class="lang-es" style="display:none">Consulta ingredientes, calorías, proteínas, azúcares, grasa saturada, fibra, sodio y alcohol de cada producto. Los campos vacíos se ocultan.</span></p>
+            </div>
+            <div class="feature-card">
                 <div class="feature-icon">🍷</div>
                 <h3><span class="lang-en">Tasting Sessions</span><span class="lang-es" style="display:none">Sesiones de Cata</span></h3>
                 <p><span class="lang-en">Group products into named tastings with descriptions — organize everything.</span><span class="lang-es" style="display:none">Agrupa productos en catas con nombre y descripción — organízalo todo.</span></p>
@@ -312,7 +317,12 @@
             <div class="feature-card">
                 <div class="feature-icon">🔗</div>
                 <h3><span class="lang-en">Share a Tasting</span><span class="lang-es" style="display:none">Comparte una Cata</span></h3>
-                <p><span class="lang-en">Send a tasting to a friend as a link or a file — with notes, or names only. Your ratings are never shared.</span><span class="lang-es" style="display:none">Envía una cata a un amigo como enlace o archivo — con notas o solo los nombres. Tus puntuaciones nunca se comparten.</span></p>
+                <p><span class="lang-en">Send a tasting to a friend as a link or a file — with notes, or names only. Your ratings are never shared, and the recipient sees a preview before adding it.</span><span class="lang-es" style="display:none">Envía una cata a un amigo como enlace o archivo — con notas o solo los nombres. Tus puntuaciones nunca se comparten, y el destinatario ve una vista previa antes de añadirla.</span></p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏰</div>
+                <h3><span class="lang-en">Daily Testing Reminder</span><span class="lang-es" style="display:none">Recordatorio Diario de Pruebas</span></h3>
+                <p><span class="lang-en">During the closed test, get one local reminder a day for 14 days so the Play testing window stays visible. Nothing is sent to a server.</span><span class="lang-es" style="display:none">Durante la prueba cerrada, recibe un recordatorio local al día durante 14 días para no perder de vista la ventana de pruebas de Play. No se envía nada a ningún servidor.</span></p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📋</div>
@@ -401,13 +411,12 @@
     <script>
         var screenshotSets = {
             en: [
-                'Screenshot_20260903-123706.png',
-                'Screenshot_20260903-123712.png',
-                'Screenshot_20260903-123742.png',
-                'Screenshot_20260903-123749.png',
-                'Screenshot_20260903-123759.png',
-                'Screenshot_20260903-123810.png',
-                'Screenshot_20260903-123821.png'
+                'Screenshot_20261112-154810.png',
+                'Screenshot_20261112-154828.png',
+                'Screenshot_20261112-154837.png',
+                'Screenshot_20261112-154747.png',
+                'Screenshot_20261112-154758.png',
+                'Screenshot_20261112-154721.png'
             ],
             es: [
                 'Screenshot_20260907-094443.png',
@@ -417,6 +426,10 @@
                 'Screenshot_20260907-094520.png',
                 'Screenshot_20260907-094531.png'
             ]
+        };
+        var screenshotDirs = {
+            en: '0_1_6_en',
+            es: '0_1_4_es'
         };
         function switchLang(lang) {
             document.body.classList.toggle('es', lang === 'es');
@@ -430,7 +443,7 @@
                 var i = parseInt(img.getAttribute('data-screenshot'), 10);
                 if (set[i]) {
                     img.style.display = 'block';
-                    img.src = 'screenshots/0_1_4_' + lang + '/' + set[i];
+                    img.src = 'screenshots/' + (screenshotDirs[lang] || screenshotDirs.es) + '/' + set[i];
                 } else {
                     img.style.display = 'none';
                 }
